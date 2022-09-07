@@ -1,8 +1,44 @@
-import React from 'react';
+import { doc, onSnapshot } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
+import { db } from "../firebase";
+import photoURL from "../img/userAvatar.jpg"
 
-function Chats(props) {
+
+function Chats() {
+    const [chats, setChats] = useState([]);
+    const { currentUser } = useContext(AuthContext);
+    const { dispatch } = useContext(ChatContext);
+
+
+    const handleSelect = (u) => {
+        dispatch({ type: "CHANGE_USER", payload: u });
+    };
     return (
-        <div><h1>Chats</h1></div>
+        <div className="chats">
+                <div
+                    className="userChat"
+                    key={1}
+                >
+                    <img src={photoURL} alt="" />
+                    <div className="userChatInfo">
+                        <span>Zahar Medvedev</span>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </div>
+
+            <div
+                className="userChat"
+                key={1}
+            >
+                <img src={photoURL} alt="" />
+                <div className="userChatInfo">
+                    <span>Oksana Medvedeva</span>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                </div>
+            </div>
+        </div>
     );
 }
 
